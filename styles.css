@@ -1,0 +1,19 @@
+:root {
+  --dark-bg-color: rgb(69, 67, 67);
+  --dark-color: rgb(241, 232, 232);
+}
+
+.dark-theme .user-card {
+  color: var(--dark-color);
+  background: var(--dark-bg-color);
+}
+
+.dark-theme button {
+  color: var(--dark-color);
+  background: var(--dark-bg-color);
+}
+
+.dark-theme input {
+  color: var(--dark-color);
+  background: var(--dark-bg-color);
+}
