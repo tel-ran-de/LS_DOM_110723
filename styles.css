@@ -1,7 +1,15 @@
+:root {
+  --dark-bg-color: rgb(44, 43, 43);
+  --dark-color: rgb(249, 237, 237);
+  --dark-input-color: rgb(251, 249, 249);
+  --dark-input-bg-color: rgb(142, 138, 138);
+}
+
 .user-container {
   display: flex;
   margin-top: 20px;
 }
+
 .user-card {
   display: flex;
   align-items: center;
@@ -10,4 +18,19 @@
   height: 150px;
   border-radius: 10px;
   box-shadow: 4px 2px 38px 0px rgba(0, 0, 0, 0.75);
+}
+
+.dark-theme .user-card {
+  color: var(--dark-color);
+  background: var(--dark-bg-color);
+}
+
+.dark-theme button {
+  color: var(--dark-color);
+  background: var(--dark-bg-color);
+}
+
+.dark-theme input {
+  color: var(--dark-input-color);
+  background: var(--dark-input-bg-color);
 }

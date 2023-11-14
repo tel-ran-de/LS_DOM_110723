@@ -6,6 +6,23 @@ const usersContainer = document.createElement('div')
 usersContainer.classList.add('user-container')
 root.append(usersContainer)
 
+const buttonTheme = document.querySelector('#change-theme')
+// get - получить взять брать
+const currentTheme = localStorage.getItem('theme')
+
+// parse из JSON конвертировать в обычный объект
+const userFromStorage = JSON.parse(localStorage.getItem('userData'))
+console.log(userFromStorage)
+
+if (currentTheme) {
+  document.body.classList.add(currentTheme)
+}
+
+buttonTheme.addEventListener('click', () => {
+  document.body.classList.toggle('dark-theme')
+  localStorage.setItem('theme', document.body.classList)
+})
+
 const userArray = []
 
 const showUsers = (arr) => {
@@ -29,8 +46,13 @@ form.addEventListener('submit', (event) => {
     name: nameInput.value,
     age: ageInput.value,
   }
+
+  localStorage.setItem('userData', JSON.stringify(user))
+
   userArray.push(user)
   showUsers(userArray)
   nameInput.value = ''
   ageInput.value = ''
 })
+// setItem => stringify
+// getItem => parse()
