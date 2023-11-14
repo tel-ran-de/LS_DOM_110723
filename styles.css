@@ -1,19 +1,13 @@
-:root {
-  --dark-bg-color: rgb(69, 67, 67);
-  --dark-color: rgb(241, 232, 232);
+.user-container {
+  display: flex;
+  margin-top: 20px;
 }
-
-.dark-theme .user-card {
-  color: var(--dark-color);
-  background: var(--dark-bg-color);
-}
-
-.dark-theme button {
-  color: var(--dark-color);
-  background: var(--dark-bg-color);
-}
-
-.dark-theme input {
-  color: var(--dark-color);
-  background: var(--dark-bg-color);
+.user-card {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  width: 150px;
+  height: 150px;
+  border-radius: 10px;
+  box-shadow: 4px 2px 38px 0px rgba(0, 0, 0, 0.75);
 }
