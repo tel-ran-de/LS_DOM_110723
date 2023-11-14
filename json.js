@@ -20,3 +20,17 @@ const user = {
 }
 const userToJSON = JSON.stringify(user)
 console.log(userToJSON)
+
+const books = [
+  { title: 'Book 1', author: 'Author A' },
+  { title: 'Book 2', author: 'Author B' },
+  { title: 'Book 3', author: 'Author A' },
+  { title: 'Book 4', author: 'Author C' },
+]
+const booksToJSON = JSON.stringify(books)
+console.log(booksToJSON)
+console.log(typeof booksToJSON)
+
+const fromJSONtoArray = JSON.parse(booksToJSON)
+console.log(fromJSONtoArray)
+console.log(typeof fromJSONtoArray)

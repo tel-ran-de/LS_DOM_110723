@@ -10,12 +10,15 @@ const buttonTheme = document.querySelector('#change-theme')
 // get - получить взять брать
 const currentTheme = localStorage.getItem('theme')
 
-// parse из JSON конвертировать в обычный объект
-const userFromStorage = JSON.parse(localStorage.getItem('userData'))
-console.log(userFromStorage)
-
 if (currentTheme) {
   document.body.classList.add(currentTheme)
+}
+// parse из JSON конвертировать в обычный объект
+const userFromStorage = JSON.parse(localStorage.getItem('userData'))
+
+if (userFromStorage) {
+  nameInput.value = userFromStorage.name
+  ageInput.value = userFromStorage.age
 }
 
 buttonTheme.addEventListener('click', () => {
@@ -23,7 +26,9 @@ buttonTheme.addEventListener('click', () => {
   localStorage.setItem('theme', document.body.classList)
 })
 
-const userArray = []
+// надо достать данные массива по ключу, распарсить и занести в переменную
+// если у нас в LS ничего нет по ключу то подставляем пустой массив
+const userArray = JSON.parse(localStorage.getItem('userArray')) || []
 
 const showUsers = (arr) => {
   usersContainer.innerHTML = ''
@@ -39,6 +44,8 @@ const showUsers = (arr) => {
   })
 }
 
+showUsers(userArray)
+
 form.addEventListener('submit', (event) => {
   event.preventDefault()
 
@@ -49,10 +56,14 @@ form.addEventListener('submit', (event) => {
 
   localStorage.setItem('userData', JSON.stringify(user))
 
-  userArray.push(user)
+  userArray.push(user) // изменяю массив
+  // добавляю в LS
+  localStorage.setItem('userArray', JSON.stringify(userArray))
+
   showUsers(userArray)
   nameInput.value = ''
   ageInput.value = ''
 })
-// setItem => stringify
-// getItem => parse()
+
+// setItem => stringify - добавляем в LS (в LS только строки)
+// getItem => parse() - получаем из LS
