@@ -5,19 +5,70 @@
   --dark-input-bg-color: rgb(142, 138, 138);
 }
 
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background: rgb(239, 239, 251);
+}
+
+button {
+  color: rgb(250, 247, 250);
+  background: rgb(180, 180, 242);
+  padding: 10px 20px;
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
+}
+
+header {
+  height: 50px;
+  display: flex;
+  gap: 20px;
+  padding: 10px;
+  align-items: center;
+  background: rgb(250, 247, 250);
+  margin-bottom: 20px;
+}
+
+input {
+  padding: 10px 20px;
+  border-radius: 5px;
+  border: 1px solid rgb(242, 239, 239);
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  background: #ffffff;
+  max-width: 300px;
+  border-radius: 10px;
+  padding: 10px;
+  margin: 10px;
+  box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2);
+}
 .user-container {
   display: flex;
-  margin-top: 20px;
+  margin: 20px;
+  gap: 10px;
+  flex-wrap: wrap;
 }
 
 .user-card {
   display: flex;
   align-items: center;
   flex-direction: column;
+  gap: 15px;
   width: 150px;
   height: 150px;
+  padding: 15px;
   border-radius: 10px;
-  box-shadow: 4px 2px 38px 0px rgba(0, 0, 0, 0.75);
+  background: #ffffff;
+  box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2);
 }
 
 .dark-theme .user-card {
