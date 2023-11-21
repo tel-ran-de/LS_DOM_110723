@@ -6,7 +6,12 @@ const ageInput = document.querySelector('#age')
 const usersContainer = document.createElement('div')
 usersContainer.classList.add('user-container')
 root.append(usersContainer)
+//<i class="fa-brands fa-facebook-f"></i>
+const iconFacebook = document.createElement('i')
 
+iconFacebook.classList.add('fa-brands')
+iconFacebook.classList.add('fa-facebook-f')
+header.append(iconFacebook)
 // THEME
 const buttonTheme = document.querySelector('#change-theme')
 const currentTheme = localStorage.getItem('theme')
@@ -67,17 +72,16 @@ const showUsers = (arr) => {
 const filterArray = () => {
   const searchTerm = searchInput.value.toLowerCase()
   const optionTerm = selectInput.value
-  // проходимся по объекту map
-  // добавляем в него свойство show:  user.name.toLowerCase().includes(searchTerm)
-  // в функции showUser мы будем отрисовывать юзеров у которых show: true
+
   const filteredArray = userArray.map((user) => ({
     ...user,
     show: user.name.toLowerCase().includes(searchTerm),
   }))
-  console.log(filteredArray)
+
   optionTerm === 'asc'
     ? filteredArray.sort((a, b) => a.age - b.age)
     : filteredArray.sort((a, b) => b.age - a.age)
+
   showUsers(filteredArray)
 }
 
@@ -94,10 +98,18 @@ form.addEventListener('submit', (event) => {
 
   userArray.push(user)
   localStorage.setItem('userArray', JSON.stringify(userArray))
-  filterArray()
+  filterArray() // было showUsers()
   nameInput.value = ''
   ageInput.value = ''
 })
 
-searchInput.addEventListener('input', () => filterArray()) // прокидываю функцию
+searchInput.addEventListener('input', () => filterArray())
 selectInput.addEventListener('change', () => filterArray())
+
+// 1. мы поменяли c filter на map
+// 2. мы прошлись по массиву и добавили в него новое свойство show
+// 3. в функции showUser добавили условие user.show()
+// 4. заходим в форму
+// 5. условие show чтобы удовлетворяло поиску
+// 6. в форме вызываем не функцию отрисовки, а функцию сортировки
+// 7. Чтобы вызывалась правильно мы ее ставим перед формой
