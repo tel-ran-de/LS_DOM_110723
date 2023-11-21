@@ -31,48 +31,73 @@ searchInput.type = 'text'
 searchInput.id = 'search'
 header.append(searchInput)
 
+// SELECT FOR SORTING
+const selectInput = document.createElement('select')
+header.append(selectInput)
+
+const ascOption = document.createElement('option')
+ascOption.value = 'asc'
+ascOption.innerText = 'По возрастанию'
+selectInput.append(ascOption)
+
+const descOption = document.createElement('option')
+descOption.value = 'desc'
+descOption.innerText = 'По убыванию'
+selectInput.append(descOption)
+
+// USERS FROM LS
 const userArray = JSON.parse(localStorage.getItem('userArray')) || []
 
 const showUsers = (arr) => {
   usersContainer.innerHTML = ''
   arr.forEach((user) => {
-    const userCard = document.createElement('div')
-    userCard.classList.add('user-card')
-    const userName = document.createElement('h2')
-    userName.innerText = user.name
-    const userAge = document.createElement('p')
-    userAge.innerText = user.age
-    userCard.append(userName, userAge)
-    usersContainer.append(userCard)
+    if (user.show) {
+      const userCard = document.createElement('div')
+      userCard.classList.add('user-card')
+      const userName = document.createElement('h2')
+      userName.innerText = user.name
+      const userAge = document.createElement('p')
+      userAge.innerText = user.age
+      userCard.append(userName, userAge)
+      usersContainer.append(userCard)
+    }
   })
 }
 
-showUsers(userArray)
+const filterArray = () => {
+  const searchTerm = searchInput.value.toLowerCase()
+  const optionTerm = selectInput.value
+  // проходимся по объекту map
+  // добавляем в него свойство show:  user.name.toLowerCase().includes(searchTerm)
+  // в функции showUser мы будем отрисовывать юзеров у которых show: true
+  const filteredArray = userArray.map((user) => ({
+    ...user,
+    show: user.name.toLowerCase().includes(searchTerm),
+  }))
+  console.log(filteredArray)
+  optionTerm === 'asc'
+    ? filteredArray.sort((a, b) => a.age - b.age)
+    : filteredArray.sort((a, b) => b.age - a.age)
+  showUsers(filteredArray)
+}
+
+filterArray()
 
 form.addEventListener('submit', (event) => {
   event.preventDefault()
+  const searchTerm = searchInput.value.toLowerCase()
   const user = {
     name: nameInput.value,
     age: ageInput.value,
+    show: nameInput.value.toLowerCase().includes(searchTerm),
   }
 
   userArray.push(user)
   localStorage.setItem('userArray', JSON.stringify(userArray))
-  showUsers(userArray)
+  filterArray()
   nameInput.value = ''
   ageInput.value = ''
 })
 
-searchInput.addEventListener('input', (event) => {
-  // ... spread operator - создаем копию массива
-  // копия для того чтобы не мутировать исходный массив
-  // const newArray = [...userArray]
-
-  const filteredArray = userArray.filter((user) =>
-    user.name.toLowerCase().includes(event.target.value.toLowerCase())
-  )
-
-  showUsers(filteredArray)
-  // при вводе данных проверяем содержит ли наш элемент(его имя) подстроку
-  // и результат перерисовываем
-})
+searchInput.addEventListener('input', () => filterArray()) // прокидываю функцию
+selectInput.addEventListener('change', () => filterArray())
